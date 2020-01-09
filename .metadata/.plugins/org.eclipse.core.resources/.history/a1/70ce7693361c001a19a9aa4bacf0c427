@@ -1,0 +1,60 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.List,br.com.empresa.model.Pais" %>
+<%@ page import="java.util.List,br.com.empresa.model.Equipe" %>
+<%@ page import="java.util.List,br.com.empresa.model.Pais" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<title>Cadastro de Pilotos</title>
+</head>
+<body>
+	<div align="center">
+		<form method="get" action="cadPiloto">
+			<fieldset>
+				<legend>Cadastro de Pilotos</legend>
+				<label>Código: </label><input type="hidden" name="codigo" />
+				<br />
+				<label>País:</label>
+				<select name="pais">
+					<option value="">Selecione um País</option>
+					<c:forEach var="pais" items="${paises}">
+						<option value="${pais.codigo}" >
+							${pais.nome}</option>
+					</c:forEach>
+				</select> 
+				<br/>
+				<label>Equipe:</label>
+				<select name="equipe">
+					<option value="">Selecione uma Equipe</option>
+					<c:forEach var="equipe" items="${equipes}">
+						<option value="${equipe.codigo}" >
+							${equipe.nome}</option>
+					</c:forEach>
+				</select> 
+				<br/>
+				<label>Categorias:</label>
+				<select name="categoria">
+					<option value="">Selecione uma Categoria</option>
+					<c:forEach var="categoria" items="${categorias}">
+						<option value="${categoria}" >
+							${categoria.descricao}</option>
+					</c:forEach>
+				</select> 
+				<br/>
+
+				<label>Nome:</label><input type="text" name="nome" />
+				<br />
+
+				<input type="submit" value="Salvar">				
+				<input type="reset" value="Limpar"> 
+				<br />
+			</fieldset>
+		</form>
+	</div>
+</body>
+</html>

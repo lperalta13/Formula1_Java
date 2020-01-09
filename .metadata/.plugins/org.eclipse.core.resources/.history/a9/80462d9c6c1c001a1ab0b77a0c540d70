@@ -1,0 +1,84 @@
+package br.com.empresa.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import br.com.empresa.dao.CategoriaDAO;
+import br.com.empresa.dao.PontuacaoDAO;
+import br.com.empresa.dao.ProdutoDAO;
+import br.com.empresa.model.Produto;
+
+
+@WebServlet("/relPontuacao")
+public class RelatorioServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PilotoDAO pilotoDAO = new PilotoDAO(); 
+		PontuacaoDAO pontuacaoDAO = new PontuacaoDAO();
+		 
+		 Long codigoPiloto = Long.parseLong(request.getParameter("piloto"));
+		 System.out.println("atributo piloto: " + request.getParameter("piloto") );
+		 
+		 //buscar o piloto e setar na classe Pontuacao
+		 
+		 switch (request.getParameter("acao")) {
+		   case "list1":
+			   	List<Pontuacao> listaPontuacao = pontuacaoDAO.buscaTodosSomandoPontos();
+				 RequestDispatcher rd = request.getRequestDispatcher("listaPontuacao.jsp");
+				 request.setAttribute("pontuacao", listaPontuacao);
+				 rd.forward(request, response);
+
+			   	break;
+
+/*		   case "list2":
+			   	List<Produto> listaProdutos1 = produtoDAO.buscaTodosPorDescricaoDesc();
+				 RequestDispatcher rd1 = request.getRequestDispatcher("listaProdutos.jsp");
+				 request.setAttribute("produtos", listaProdutos1);
+				 rd1.forward(request, response);
+
+			   	break;
+
+		   case "list3":
+			   	List<Produto> listaProdutos2 = produtoDAO.buscaTodosPorQuantidadeAsc();
+				 RequestDispatcher rd2 = request.getRequestDispatcher("listaProdutos.jsp");
+				 request.setAttribute("produtos", listaProdutos2);
+				 rd2.forward(request, response);
+
+			   	break;
+		           
+		   case "list4":
+			   	List<Produto> listaProdutos3 = produtoDAO.buscaTodosPorQuantidadeDesc();
+				 RequestDispatcher rd3 = request.getRequestDispatcher("listaProdutos.jsp");
+				 request.setAttribute("produtos", listaProdutos3);
+				 rd3.forward(request, response);
+
+			   	break;
+		           
+		   case "list5":
+			   	List<Produto> listaProdutos4 = produtoDAO.buscaMaiorMenorPorQuantidade();
+				 RequestDispatcher rd4 = request.getRequestDispatcher("listaProdutos.jsp");
+				 request.setAttribute("produtos", listaProdutos4);
+				 rd4.forward(request, response);
+
+			   	break;
+*/
+		}
+
+/*		   	List<Pontuacao> listaProdutos5 = (List<Produto>) produtoDAO.buscarComCategoriaPeloCodigo(codigoCategoria);
+			 RequestDispatcher rd5 = request.getRequestDispatcher("listaProdutos.jsp");
+			 request.setAttribute("produtos", listaProdutos5);
+			 rd5.forward(request, response);
+*/
+		 
+	}
+
+}

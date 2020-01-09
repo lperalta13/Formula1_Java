@@ -1,0 +1,61 @@
+package br.com.empresa.controller;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import br.com.empresa.dao.EquipeDAO;
+import br.com.empresa.dao.PaisDAO;
+import br.com.empresa.dao.PilotoDAO;
+import br.com.empresa.model.Categoria;
+import br.com.empresa.model.Equipe;
+import br.com.empresa.model.Pais;
+import br.com.empresa.model.Piloto;
+
+@WebServlet("/atualizaPiloto")
+public class AtualizaPilotoServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Long codigo = Long.parseLong(request.getParameter("codigo"));
+		
+		PilotoDAO dao = new PilotoDAO();
+		
+		//buscar o Piloto no BD para realizar alteração
+		Piloto piloto = dao.buscarPeloCodigo(codigo);
+		
+		//lista de paises
+		PaisDAO paisDAO = new PaisDAO();
+		List<Pais> paises = paisDAO.buscarTodos();
+				
+		//lista de equipes
+		EquipeDAO equipeDAO = new EquipeDAO();
+		List<Equipe> equipes = equipeDAO.buscarTodos();
+
+		//lista de categorias
+		List<Categoria> categorias = Arrays.asList(Categoria.values());
+		
+		//redirecionar para a pagina que o usuario pode alterar os dados da Equipe
+		RequestDispatcher rd = request.getRequestDispatcher("formAlteraPiloto.jsp");
+		
+		//colocar objeto modelo em memoria
+		request.setAttribute("piloto", piloto);
+		
+		//setando as listas na requisição
+	    request.setAttribute("paises", paises);
+	    request.setAttribute("equipes", equipes);
+	    request.setAttribute("categorias", categorias);
+	    
+	    rd.forward(request, response);
+		
+
+	}
+
+}

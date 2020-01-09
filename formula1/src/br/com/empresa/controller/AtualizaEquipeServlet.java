@@ -1,0 +1,49 @@
+package br.com.empresa.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import br.com.empresa.dao.EquipeDAO;
+import br.com.empresa.dao.PaisDAO;
+import br.com.empresa.model.Equipe;
+import br.com.empresa.model.Pais;
+
+@WebServlet("/atualizaEquipe")
+public class AtualizaEquipeServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Long codigo = Long.parseLong(request.getParameter("codigo"));
+		
+		EquipeDAO dao = new EquipeDAO();
+		
+		//buscar a equipe no BD para realizar alteração
+		Equipe equipe = dao.buscarPeloCodigo(codigo);
+		
+		//lista de paises
+		PaisDAO paisDAO = new PaisDAO();
+		List<Pais> paises = paisDAO.buscarTodos();
+				
+			
+		//redirecionar para a pagina que o usuario pode alterar os dados da Equipe
+		RequestDispatcher rd = request.getRequestDispatcher("formAlteraEquipe.jsp");
+		
+		//colocar objeto modelo em memoria
+		request.setAttribute("equipe", equipe);
+		
+		//setando as listas na requisição
+	    request.setAttribute("paises", paises);
+		
+		rd.forward(request, response);
+		
+
+	}
+
+}

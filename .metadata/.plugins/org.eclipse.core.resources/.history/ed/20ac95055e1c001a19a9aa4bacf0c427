@@ -1,0 +1,46 @@
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>   
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Altera Pontuacao</title>
+</head>
+<body>
+<form action="alteraPontuacao" method="get">
+		Codigo: <input type="hidden" name="codigo" value="${pontuacao.codigo}"> <br/> 
+		
+		Piloto:
+				<select name="piloto" >
+					<option value="${pontuacao.piloto.codigo }">${pontuacao.piloto.nome}</option>
+					<c:forEach var="piloto" items="${pilotos}">
+						<option value="${piloto.codigo}" >
+							${piloto.nome}</option>
+					</c:forEach>
+				</select> 
+				<br/>
+		Equipe:
+				<select name="equipe" >
+					<option value="${pontuacao.equipe.codigo }">${pontuacao.equipe.descricao}</option>
+					<c:forEach var="equipe" items="${equipes}">
+						<option value="${equipe.codigo}" >
+							${equipe.descricao}</option>
+					</c:forEach>
+				</select> 
+				<br/>
+		GP:
+				<select name="gp" >
+					<option value="${pontuacao.gp.codigo }">${pontuacao.gp.descricao}</option>
+					<c:forEach var="gp" items="${gps}">
+						<option value="${gp.codigo}" >
+							${gp.descricao}</option>
+					</c:forEach>
+				</select> 
+				<br/>
+		Pontos: <input type="text" name="pontos" value="${pontuacao.pontos}"> <br/>				
+				<br/>		
+		<input type="submit" value="Alterar">
+	</form>
+
+</body>
+</html>

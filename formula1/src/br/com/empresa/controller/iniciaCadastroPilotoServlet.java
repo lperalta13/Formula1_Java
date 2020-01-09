@@ -1,0 +1,47 @@
+package br.com.empresa.controller;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import br.com.empresa.dao.EquipeDAO;
+import br.com.empresa.dao.PaisDAO;
+import br.com.empresa.model.Categoria;
+import br.com.empresa.model.Equipe;
+import br.com.empresa.model.Pais;
+
+@WebServlet("/iniciaCadPiloto")
+public class iniciaCadastroPilotoServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//lista de equipes
+		EquipeDAO equipeDAO = new EquipeDAO();
+		List<Equipe> equipes = equipeDAO.buscarTodos();
+
+		//lista de paises
+		PaisDAO paisDAO = new PaisDAO();
+		List<Pais> paises = paisDAO.buscarTodos();
+		
+		//lista de categorias
+		List<Categoria> categorias = Arrays.asList(Categoria.values());
+
+		//dispachando para a página Piloto.jsp
+	    RequestDispatcher rd = request.getRequestDispatcher("piloto.jsp");
+	    //setando as listas na requisição
+	    request.setAttribute("equipes", equipes);
+	    request.setAttribute("paises", paises);
+	    request.setAttribute("categorias", categorias);	    
+	    
+	    rd.forward(request, response);
+	
+	}
+
+}

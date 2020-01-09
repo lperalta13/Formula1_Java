@@ -1,0 +1,60 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.List,br.com.empresa.model.Piloto" %>
+<%@ page import="java.util.List,br.com.empresa.model.Equipe" %>
+<%@ page import="java.util.List,br.com.empresa.model.Gp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<title>Cadastro de Pontuações</title>
+</head>
+<body>
+	<div align="center">
+		<form method="get" action="cadPontuacao">
+			<fieldset>
+				<legend>Cadastro de Pontuações</legend>
+				<label>Código: </label><input type="hidden" name="codigo" />
+				<br />
+				<label>Piloto:</label>
+				<select name="piloto">
+					<option value="">Selecione um Piloto</option>
+					<c:forEach var="piloto" items="${pilotos}">
+						<option value="${piloto.codigo}" >
+							${pais.nome}</option>
+					</c:forEach>
+				</select> 
+				<br/>
+				<label>Equipe:</label>
+				<select name="equipe">
+					<option value="">Selecione uma Equipe</option>
+					<c:forEach var="equipe" items="${equipes}">
+						<option value="${equipe.codigo}" >
+							${equipe.descricao}</option>
+					</c:forEach>
+				</select> 
+				<br/>
+				<label>Gp:</label>
+				<select name="gp">
+					<option value="">Selecione um GP</option>
+					<c:forEach var="gp" items="${gps}">
+						<option value="${gp.codigo}" >
+							${gp.descricao}</option>
+					</c:forEach>
+				</select> 
+				<br/>
+
+				<label>Pontos:</label><input type="text" name="pontos" />
+				<br />
+
+				<input type="submit" value="Salvar">				
+				<input type="reset" value="Limpar"> 
+				<br />
+			</fieldset>
+		</form>
+	</div>
+</body>
+</html>

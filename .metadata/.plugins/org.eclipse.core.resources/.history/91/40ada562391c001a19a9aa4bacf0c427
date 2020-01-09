@@ -1,0 +1,51 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.List,br.com.empresa.model.Pais" %>
+<%@ page import="java.util.List,br.com.empresa.model.Equipe" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Lista Pilotos - JSP</title>
+</head>
+<body>
+<h1>Listagem de Pilotos</h1>
+<br>
+	<table border="1">
+		<tr>
+			<td>Codigo</td>
+			<td>Descrição</td>	
+			<td>Pais</td>
+			<td>Equipe</td>
+			<td>Categoria</td>			
+	
+		</tr>
+		<c:forEach items="${pilotos}" var="piloto">
+		<tr> 
+		<td>${piloto.codigo}</td>
+		<td>${piloto.descricao}</td>	
+		<td>${piloto.pais.nome}</td>
+		<td>${piloto.equipe.descricao}</td>
+		<td>${piloto.categoria.descricao}</td>
+
+		<td>	
+		<a href="/formula1/atualizaPiloto?codigo=${piloto.codigo}">
+		Editar
+		</a>
+		</td>		
+		
+		<td>
+		<a href="/formula1/removePiloto?codigo=${piloto.codigo}">
+		Remover
+		</a>
+		</td>		
+		</tr>		
+		</c:forEach>
+		
+	</table>
+
+</body>
+</html>
